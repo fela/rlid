@@ -1,0 +1,12 @@
+Three steps are needed
+
+NOTE that scripts should be run from the Source Files directory, thus the
+parent directory of these
+
+1. get the subtitle data using get_data.rb, change the query and languages
+until satisfied with the number of subtitles
+
+2. run clean_subtitles.rb to convert the data to utf-8 and discard all unwanted
+subs
+
+3. run create_corpora.rb to create the actual corpora and test data
