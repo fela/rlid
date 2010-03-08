@@ -7,16 +7,16 @@ require 'common'
 
 guesser1 = ModelDistanceGuesser.new(NGrams3000)
 guesser2 = NaiveBayesGuesser.new
-guesser1.name = "rank order"
-guesser2.name = "naive bayes"
+guesser1.name = "ROC 3000"
+guesser2.name = "naive bayes 3000"
 t = Test.new
 t.languages = COMMON_LANGUAGES
-t.test_length = 5000
+t.test_length = 25000
 t.filename = "test_data"
-t.guessers = [guesser1, guesser2]
+t.guessers = [guesser2, guesser1]
 
 result = t.execute
-result.plot("naive_bayes1")
+result.plot("naive_bayes")
 
 #######################################################
 #t.test_length = -1 # no limit

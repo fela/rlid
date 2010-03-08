@@ -4,11 +4,15 @@ require 'common'
 require 'models/ordered_ngrams'
 require 'models/cosine_distance_model'
 
-MODEL = NGrams4000
+# models to train
+MODELS = [CosineDistanceModel]
 
-Language.each_2files('corpus', MODEL.filename, 'r', 'w') do |corpus, model, l|
+MODELS.each do |model|
+puts "training #{model}"
+Language.each_2files('corpus', model.filename, 'r', 'w') do |corpus, file, l|
   puts "learning #{l}.."
-  MODEL.new(corpus.read).save model
+  model.new(corpus.read).save file
+end
 end
 
 puts ">>  Successfully trained!!  <<"

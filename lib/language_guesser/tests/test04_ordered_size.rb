@@ -20,17 +20,17 @@ t.languages = COMMON_LANGUAGES
 t.filename = "test_data"
 t.guessers = [guesser4, guesser3, guesser2, guesser1]
 
-#result = t.execute
-#result.title = "Subtitles"
-#result.plot("ordered_size")
-
+result = t.execute
+result.title = "Subtitles"
+result.plot("ordered_size")
 
 #######################################################
+
 t.test_length = -1 # no limit
+#t.test_length = 5000
 t.languages = [:eng, :por]
 t.filename = "news_test"
 result = t.execute
-result.xrange = (0..80)
-result.yrange = (0.5..1)
+result.xrange = (5..60)
 result.title = "News"
 result.plot("ordered_size_news")

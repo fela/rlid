@@ -6,9 +6,9 @@ require 'common'
 # the test is performed for each guesser class given and re results are compared
 class Test
   attr_accessor :test_length, :filename, :languages, :guessers
-  MAX_WORDS = 25
+  MAX_WORDS = 15
   MIN_CHARS = 1
-  MAX_CHARS = 100
+  MAX_CHARS = 60
   DEFAULT_TEST_LENGHT = -1 # full length
 
 
@@ -61,7 +61,7 @@ private
       if test_res == lang
         @passed_tests[str.size] += 1
       elsif str.size > 70
-        warn str
+        #warn str
       end
     end
     end

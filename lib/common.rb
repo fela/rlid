@@ -1,4 +1,4 @@
-DATA_DIRECTORY =  File.expand_path("~") + "/.langid"
+DATA_DIRECTORY =  File.expand_path("../data")
 
 
 

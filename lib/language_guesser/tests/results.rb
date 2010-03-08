@@ -44,8 +44,8 @@ class Results
   def initialize(name=nil, results=nil)
     @results = Hash.new
     @results[name] = results if name
-    @xrange = (Test::MIN_CHARS..Test::MAX_CHARS)
-    @yrange = (0.3..1)
+    @xrange = (Test::MIN_CHARS..60)
+    @yrange = (0..0.7)
   end
 
   def <<(other)
@@ -62,11 +62,11 @@ class Results
       plot.xrange "[#{xrange.first}:#{xrange.last}]"
       plot.yrange "[#{yrange.first}:#{yrange.last}]"
       plot.title title if title
-      plot.ylabel "accuracy"
+      plot.ylabel "error rate"
       plot.xlabel "input length"
       plot.output file
       plot.term "postscript eps enhanced"
-      plot.key "right bottom" # position of the labels
+      #plot.key "right bottom" # position of the labels
 
       plot.data = plot_data
     end
@@ -76,14 +76,39 @@ class Results
   end
 
 private
+  # make sure all values are used
+  # fill [[1, 2], [3, 5]] # => [[1, 2], [2, 3.5], [3, 5]]
+  def fill a
+    missing_values = (a.first[0]..a.last[0]).to_a - a.map{|x| x[0]}
+    if not missing_values.empty?
+      warn "some values missing!!!!!!!!! #{missing_values}"
+    end
+
+#    all_consecutive = []
+#    consecutive = []
+#    last = nil
+#    missing_values.each do |v|
+#      consecutive << v
+#      if v != last+1
+#        all_consecutive << consecutive
+#        consecutive = []
+#      end
+#      last = v
+#    end
+  end
+
+
   def plot_data
     data = []
     @results.each do |name, hash|
       # coverto to array and sort
       combine_size = 3 # combine consecutive data...
       a = hash.to_a.sort{|x, y| x[0] <=> y[0]}
+      a.delete_if{|x| not xrange.include? x[0]}
+      fill a
+      a.reverse!
       x = a.map{|v| v[0]}.combine(combine_size)
-      y = a.map{|v| v[1]}.combine(combine_size)
+      y = a.map{|v| 1.0-v[1]}.combine(combine_size)
       data << Gnuplot::DataSet.new([x, y]) do |ds|
         ds.with = "lines"
         #ds.linewidth = 4
