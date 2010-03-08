@@ -1,10 +1,10 @@
-Three steps are needed
+_NOTE_ that scripts should be run from the source directory (the parent of this
+one)
 
-NOTE that scripts should be run from the Source Files directory, thus the
-parent directory of these
+Three steps are needed to build a multilingual corpora:
 
 1. get the subtitle data using get_data.rb, change the query and languages
-until satisfied with the number of subtitles
+until satisfied with the number of subtitles successfully downloaded
 
 2. run clean_subtitles.rb to convert the data to utf-8 and discard all unwanted
 subs

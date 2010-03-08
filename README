@@ -3,4 +3,4 @@
 Code to build multilingual text corpora, to train and to use various language
 identification algorithms is provided.
 
-
+_NOTE_ that scripts should be run from this directory
