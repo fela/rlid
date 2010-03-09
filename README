@@ -23,4 +23,4 @@ identification algorithms is provided.
 thesis.pdf contains an overview of the workings of this software, and of the
 theory behind it
 
-_NOTE_ that scripts should be run from this directory
+_NOTE_ that scripts should be run from the lib directory
