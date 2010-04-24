@@ -1,0 +1,12 @@
+_NOTE_ that scripts should be run where the rlid files can be require'd
+(e.g. the lib directory of this project)
+
+Three steps are needed to build a multilingual corpora:
+
+1. get the subtitle data using get_data.rb, change the query and languages
+until satisfied with the number of subtitles successfully downloaded
+
+2. run clean_subtitles.rb to convert the data to utf-8 and discard all unwanted
+subs
+
+3. run create_corpora.rb to create the actual corpora and test data
