@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby1.9.1
 
+module Rlid
+
 require 'set'
 
 require 'rlid/common'
@@ -150,3 +152,6 @@ private
     res
   end
 end
+
+
+end # module Rlid

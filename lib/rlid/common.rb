@@ -1,3 +1,5 @@
+module Rlid
+
 DATA_DIRECTORY =  File.expand_path("../data")
 
 class Language
@@ -92,6 +94,10 @@ COMMON_LANGUAGES = [:dut, :eng, :ita, :por, :fre, :ger]
 
 # for ngrams
 
+end # module Rlid
+
+
+# add methods to String
 class String
   def each_ngram(n=3)
     string = preprocess(n)
@@ -127,3 +133,4 @@ class String
     string
   end
 end
+

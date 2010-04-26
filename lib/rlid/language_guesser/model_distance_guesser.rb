@@ -1,3 +1,5 @@
+module Rlid
+
 require 'rlid/language_guesser/language_guesser'
 
 class ModelDistanceGuesser < LanguageGuesser
@@ -37,3 +39,5 @@ end
 #    min_language
 #  end
 #end
+
+end # module Rlid

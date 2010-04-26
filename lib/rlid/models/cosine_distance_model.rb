@@ -1,3 +1,6 @@
+module Rlid
+
+
 require 'rlid/models/model'
 require 'rlid/common'
 
@@ -61,3 +64,6 @@ class CosineDistanceModel < FrequencyModel
 end
 
 
+
+
+end # module Rlid

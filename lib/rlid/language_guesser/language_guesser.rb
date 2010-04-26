@@ -1,3 +1,5 @@
+module Rlid
+
 class LanguageGuesser
   attr_accessor :name
   def initialize
@@ -9,3 +11,5 @@ class LanguageGuesser
     string # never called, supresses unused variable warning
   end
 end
+
+end # module Rlid

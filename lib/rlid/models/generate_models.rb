@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby1.9.1
+module Rlid
 
 require 'rlid/common'
 require 'rlid/models/ordered_ngrams'
@@ -16,3 +17,6 @@ end
 end
 
 puts ">>  Successfully trained!!  <<"
+
+
+end # module Rlid

@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby1.9.1
+module Rlid
 
 require 'rlid/language_guesser/model_distance_guesser'
 require 'rlid/models/cosine_distance_model'
@@ -13,3 +14,5 @@ loop do
   print "> "
   puts guesser.guess_language(gets).to_s
 end
+
+end # module Rlid

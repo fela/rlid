@@ -1,3 +1,5 @@
+module Rlid
+
 require 'rlid/language_guesser/language_guesser'
 require 'rlid/models/naive_bayes_models'
 require 'rlid/probabilities/language_probabilities'
@@ -68,3 +70,5 @@ class NaiveBayesPriorGuesser < NaiveBayesProbabilityGuesser
     (conditional * @prior).first
   end
 end
+
+end # module Rlid

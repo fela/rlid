@@ -1,5 +1,7 @@
-# abstract class
+module Rlid
 
+
+# abstract class
 class Model
   def initialize string
     raise "#{self.class} should be subclassed"
@@ -49,3 +51,5 @@ protected
     ngram_count # never called, supresses unused variable warning
   end
 end
+
+end # module Rlid

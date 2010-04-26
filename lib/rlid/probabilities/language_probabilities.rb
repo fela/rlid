@@ -1,4 +1,8 @@
+module Rlid
+
 require 'rlid/common'
+
+
 
 class Percentage
   def initialize value
@@ -191,3 +195,5 @@ end
 #res.values.select{|x| x > 1000 and x < 10000}.sum / 1000.0
 #res.values.select{|x| x > 10000}.sum / 1000.0
 #res.values.select{|x| x < 1000}.sum / 1000.0
+
+end # module Rlid

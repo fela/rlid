@@ -1,3 +1,5 @@
+module Rlid
+
 require 'rlid/models/model'
 require 'rlid/common'
 
@@ -93,3 +95,6 @@ class NGrams4000 < OrderedNGrams
     return "3grams4000"
   end
 end
+
+
+end # module Rlid
