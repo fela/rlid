@@ -26,7 +26,7 @@ class Language
     [:no, :nor, 'Norvegian'],
     [:sk, :slo, 'Slovak'],
     [:is, :ice, 'Icelandic'],
-    [:nn, :nnn, 'No Language']
+    #[:nn, :nnn, 'No Language']
     #[:ff, :fff], # fdakjlfdaj;
   ]
 
@@ -63,6 +63,9 @@ class Language
   end
 
   def Language.name_of(code)
+    if code == :nn or code == :nnn
+      return "No Language"
+    end
     index = all_codes3.index(code) or all_codes2.index(code)
     CODES[index][NAME]
   end
