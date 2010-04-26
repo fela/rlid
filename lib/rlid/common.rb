@@ -26,13 +26,14 @@ class Language
     [:no, :nor, 'Norvegian'],
     [:sk, :slo, 'Slovak'],
     [:is, :ice, 'Icelandic'],
+    [:nn, :nnn, 'No Language']
     #[:ff, :fff], # fdakjlfdaj;
   ]
 
   # indexes
   CODE2 = 0
   CODE3 = 1
-  NAME = 3
+  NAME = 2
   NO_LANGUAGE_CODE = :nnn
 
   def Language.all_codes2
@@ -110,7 +111,7 @@ class String
   def preprocess(n)
     string = self.dup
 
-    # remove spaces at the ends
+    # remove spaces at the start and end
     string.gsub!(/\A\s+/, '')
     string.gsub!(/\s+\Z/, '')
 
@@ -119,6 +120,10 @@ class String
     # substitute newlines with ||
     string.gsub!(/\s*\n\s*/, '|'*(n-1))
     string.gsub!(/\s+/, ' ')
+    # remove spaces at the start and end
+    string.gsub!(/\A\s+/, '')
+    string.gsub!(/\s+\Z/, '')
+    
     string.downcase!
 
     padding = "|" * (n-1)
