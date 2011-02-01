@@ -7,21 +7,28 @@ require 'rake/clean'
 require 'rake/gempackagetask'
 require 'rake/rdoctask'
 require 'rake/testtask'
-require 'spec/rake/spectask'
+#require 'spec/rake/spectask'
 
 spec = Gem::Specification.new do |s|
-  s.name = 'languageid'
-  s.version = '0.0.1'
-  s.has_rdoc = true
-  s.extra_rdoc_files = ['README', 'LICENSE']
-  s.summary = 'Your summary here'
-  s.description = s.summary
-  s.author = ''
-  s.email = ''
-  # s.executables = ['your_executable_here']
-  s.files = %w(LICENSE README Rakefile) + Dir.glob("{bin,lib,spec}/**/*")
+  s.name = 'rlid'
+  s.version = '0.1.0'
+  s.required_ruby_version = '>= 1.9.1'
+  s.has_rdoc = false
+  #s.extra_rdoc_files = ['README', 'LICENSE']
+  s.summary = 'Language identification library'
+  s.description = "Language identification library specialized in " +
+                  "guessing the language of short strings."
+  s.author = 'Fela Winkelmolen'
+  s.email = 'fela.kde@gmail.com'
+  s.homepage = 'https://github.com/fela/rlid'
+  #s.files = %w(LICENSE README Rakefile) + Dir.glob("{bin,lib,spec}/**/*")
+  s.files = Dir.glob("lib/*.rb") +
+            Dir.glob("lib/rlid/*.rb") +
+            Dir.glob("lib/rlid/{language_guesser,models,probabilities}/*.rb") +
+            Dir.glob("data/naive_bayes_models")
   s.require_path = "lib"
-  s.bindir = "bin"
+  #s.executables = ['your_executable_here']
+  #s.bindir = "bin"
 end
 
 Rake::GemPackageTask.new(spec) do |p|
@@ -43,7 +50,7 @@ Rake::TestTask.new do |t|
   t.test_files = FileList['test/**/*.rb']
 end
 
-Spec::Rake::SpecTask.new do |t|
-  t.spec_files = FileList['spec/**/*.rb']
-  t.libs << Dir["lib"]
-end
+#Spec::Rake::SpecTask.new do |t|
+#  t.spec_files = FileList['spec/**/*.rb']
+#  t.libs << Dir["lib"]
+#end

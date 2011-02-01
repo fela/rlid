@@ -1,6 +1,6 @@
 module Rlid
 
-DATA_DIRECTORY =  File.expand_path("../data")
+DATA_DIRECTORY =  File.expand_path("#{__FILE__}/../../../data")
 
 class Language
   CODES = [
