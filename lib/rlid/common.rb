@@ -96,9 +96,18 @@ LANGUAGES = Language.all_codes3
 COMMON_LANGUAGES = [:dut, :eng, :ita, :por, :fre, :ger]
 
 
-# for ngrams
+def self.scrollbar(perc, size=80)
+  realsize = size-2
+  pos = (perc.to_f * realsize).round
+  bar = "=" * pos + " " * (realsize-pos)
+  bar[pos-1] = ">" if pos > 0 and pos < realsize
+  print "|", bar, "|", "\r"
+end
+
 
 end # module Rlid
+
+
 
 
 # add methods to String
@@ -131,9 +140,9 @@ class String
 
     padding = "|" * (n-1)
 
-    if string.size == 1
-      string = "|" + string + " "
-    elsif string.size == 1
+    #if string.size == 1
+    #  string = "|" + string + " "
+    if string.size < n-1
       string = padding + string + " "
     else
       string = padding + string + padding

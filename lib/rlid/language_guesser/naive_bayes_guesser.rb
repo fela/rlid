@@ -27,7 +27,6 @@ class NaiveBayesGuesser < LanguageGuesser
 end
 
 class NaiveBayesProbabilityGuesser < NaiveBayesGuesser
-  MAX = 3
   def guess_language(string)
     results = {}
     tot = 0.0 # for normalization
@@ -46,6 +45,23 @@ class NaiveBayesProbabilityGuesser < NaiveBayesGuesser
       results[k] /= tot if tot != 0
     end
 
+    LanguageProbabilities.new(results)
+  end
+end
+
+class SmartBayesGuesser < LanguageGuesser
+  def initialize(default=1)
+    print "Smart Bayes: loading models.."
+    @models = SmartBayesModels.new
+    puts " Done!"
+  end
+  def guess_language(string)
+    results = @models.probabilities(string)
+    results.delete :nnn
+    tot = results.values.inject(0.0){|s,x| s+x}
+    results.each_key do |lang|
+      results[lang] /= tot
+    end
     LanguageProbabilities.new(results)
   end
 end

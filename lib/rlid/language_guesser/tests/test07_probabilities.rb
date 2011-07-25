@@ -1,3 +1,6 @@
+module Rlid
+
+$LOAD_PATH <<  File.expand_path("#{__FILE__}/../../../../")
 require 'rlid/language_guesser/tests/test'
 require 'rlid/language_guesser/model_distance_guesser'
 require 'rlid/language_guesser/naive_bayes_guesser'
@@ -19,3 +22,4 @@ result = t.execute
 result.xrange = (0..35)
 result.plot("probabilities")
 
+end # module Rlid

@@ -51,7 +51,7 @@ module Rlid
   end
 end
 
-puts require 'irb'
+puts RUBY_VERSION
 
 
 #irb self

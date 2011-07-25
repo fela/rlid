@@ -1,6 +1,9 @@
+
+require 'rlid/common'
 require 'rlid/language_guesser/tests/results'
 require 'rlid/probabilities/language_probabilities'
-require 'rlid/common'
+
+module Rlid
 
 # tests are performed on filename for every language
 # the test is performed for each guesser class given and re results are compared
@@ -35,7 +38,7 @@ private
     @passed_tests = Hash.new(0)
 
     each_file do |file, lang|
-      puts "- testing #{lang}"
+      puts "- testing #{lang}: "
       test_aux(file, lang)
     end
 
@@ -54,16 +57,17 @@ private
     all_words = file.read[0..test_length].split(' ')
 
     1.upto(MAX_WORDS) do |n_of_words|
-    all_words.each_slice(n_of_words) do |a|
-      str = a.join(' ')
-      test_res = try_guess(str)
-      @total_tests[str.size] += 1
-      if test_res == lang
-        @passed_tests[str.size] += 1
-      elsif str.size > 70
-        #warn str
+      Rlid.scrollbar( (1.0 * n_of_words / MAX_WORDS), MAX_WORDS+2 )
+      all_words.each_slice(n_of_words) do |a|
+        str = a.join(' ')
+        test_res = try_guess(str)
+        @total_tests[str.size] += 1
+        if test_res == lang
+          @passed_tests[str.size] += 1
+        elsif str.size > 70
+          #warn str
+        end
       end
-    end
     end
   end
 
@@ -84,4 +88,7 @@ private
       end
     end
   end
+end
+
+
 end

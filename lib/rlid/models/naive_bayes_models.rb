@@ -6,35 +6,45 @@ require 'set'
 
 require 'rlid/common'
 
+
+# > prova di una stringa molto lunga lunghissima davvero lunga yyyy
+# default = 10
+# ita(99.97) : cat(0.026) : spa(0.0023)
+# default = 1
+# ita(99.995) : cat(0.0045) : por(0.00019)
+# default = 0.1
+# ita(99.9990) : cat(0.00086) : rum(3.7e-05)
+
 class NaiveBayesModels
-  attr_accessor :default_count
-  # ngram leght
-  N = 3
+  attr_accessor :default_count, :n
   # top ngrams kept for every language
   CUTOFF = 3000
   # special feature
   OTHER = nil
 
-  MAX_STRING_LENGTH = 75
+  MAX_STRING_LENGTH = 20
 
-  FILEPATH = "#{DATA_DIRECTORY}/naive_bayes_models"
+  FILENAME = "naive_bayes_models"
 
-  def initialize(default_count=1)
-    @default_count=default_count
+  def initialize(n=3)
+    @n=n
+    @default_count=1
   end
 
-  def self.generate_models
-    models = NaiveBayesModels.new(nil)
+  def self.generate_models(file=nil, n=3)
+    file ||= FILENAME
+    models = NaiveBayesModels.new(n)
     puts "Training started.."
     models.train
-    File.open(FILEPATH, "w") do |file|
-      file.write Marshal.dump(models)
-      puts "Models saved to #{FILEPATH}"
+    File.open( "#{DATA_DIRECTORY}/#{file}", "w") do |f|
+      f.write Marshal.dump(models)
+      puts "Models saved to #{DATA_DIRECTORY}/#{file}"
     end
   end
 
-  def self.load
-    Marshal.load(File.read(FILEPATH))
+  def self.load(file=nil)
+    file ||= FILENAME
+    Marshal.load(File.read("#{DATA_DIRECTORY}/#{file}"))
   end
 
   def probabilities(string)
@@ -43,11 +53,24 @@ class NaiveBayesModels
     end
     @ngram_frequency.keys.each do |lang|
       prob = 1
-      string[0..MAX_STRING_LENGTH].each_ngram do |ngram|
+      string[0..MAX_STRING_LENGTH].each_ngram(@n) do |ngram|
+        if lang == :eng
+          #print ngram, ",  "
+        end
         prob *= frequency_of(lang, ngram)
       end
       yield lang, prob
     end
+  end
+
+  # returns a hash
+  def probabilities_h(string)
+    #puts "#{@n}: #{total_ngrams(:ita)}"
+    res = {}
+    probabilities(string) do |lang, prob|
+      res[lang] = prob
+    end
+    res
   end
 
   def train
@@ -81,13 +104,14 @@ class NaiveBayesModels
       puts_info(lang)
     end
 
+    # add language :nnn
     n = @ngram_frequency.values.map{|x| x[OTHER]}.max * 3 / 2 # (* 1.5)
     @total_ngrams_found[:nnn] = n
     @ngram_frequency[Language::NO_LANGUAGE_CODE] = {OTHER => n}
     @total_ngrams_not_found[:nnn] = @stored_ngrams.size
     
     #puts "total frequencies saved: #{freqs}"
-    #puts "defauld values used: #{default_count} (#{100*default_count/freqs}%)"
+    #puts "default values used: #{default_count} (#{100*default_count/freqs}%)"
     #@ngram_frequency
   end
 
@@ -101,7 +125,6 @@ protected
       #warn "  :#{ngram}: is in OTHER!" if lang == :eng
       ngram = OTHER
     end
-    count = 0
     if @ngram_frequency[lang].include?(ngram)
       count = @ngram_frequency[lang][ngram]
     else
@@ -130,7 +153,7 @@ private
     Language.each_file("corpus") do |file, lang|
       puts "- I'm learning #{lang}"
       ngram_counts[lang] = Hash.new(0) # default is 1
-      file.read.each_ngram(N) do |ngram|
+      file.read.each_ngram(@n) do |ngram|
         ngram_counts[lang][ngram] += 1
       end
 
@@ -153,5 +176,29 @@ private
   end
 end
 
+
+class SmartBayesModels
+  def initialize
+    @trigrams = NaiveBayesModels.load
+    @bigrams = NaiveBayesModels.load("bigrams")
+    @trigrams.default_count = 0.1
+    @bigrams.default_count = 0.1
+  end
+
+  def probabilities string
+    probtri = @trigrams.probabilities_h(string)
+    probbi  = @bigrams.probabilities_h(string)
+    res = {}
+    probtri.each_key do |lang|
+      if probbi[lang] != 0
+        res[lang] = probtri[lang]/probbi[lang]
+      else
+        res[lang] = probtri[lang]
+      end
+      #puts "#{lang} = #{probtri[lang]}/#{probbi[lang]} (#{res[lang]})"
+    end
+    res
+  end
+end
 
 end # module Rlid

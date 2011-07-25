@@ -11,7 +11,9 @@ class Percentage
 
   def to_s
     if @value <= 0.98
-      return "%.2g" % (@value * 100)
+      "%.2g" % (@value * 100)
+    elsif @value == 1.0
+      "100"
     else
       complement = 1.0 - @value
       # complement =
@@ -23,7 +25,7 @@ class Percentage
         digits += 1
         res = "%.#{digits}f" % (@value * 100)
       end
-      return res
+      res
     end
   end
 
@@ -66,6 +68,10 @@ class LanguageProbabilities
       formatted_perc = Percentage.new(x[PERC]).to_s
       "#{x[LANG]}(#{formatted_perc})"
     end.join(" : ")
+  end
+
+  def [](lang)
+    @percentage[lang]
   end
 
   def first
@@ -126,7 +132,11 @@ protected
   end
 
   def sorted
-    @percentage.to_a.sort!{|x,y| y[PERC] <=> x[PERC]}
+    begin
+      @percentage.to_a.sort!{|x,y| y[PERC] <=> x[PERC]}
+    rescue
+      p @percentage
+    end
   end
 
   attr_accessor :percentage

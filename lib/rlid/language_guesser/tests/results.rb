@@ -10,12 +10,6 @@
 #  end
 #end
 
-require 'gnuplot'
-require 'rlid/common'
-require 'rlid/language_guesser/tests/test'
-
-
-
 class Array
   # (1..6).to_a.combine(2) => [1.2, 3.5, 5.5]
   def combine(n)
@@ -32,6 +26,12 @@ class Array
     inject(0) {|x, y| x + y }
   end
 end
+
+module Rlid
+
+require 'gnuplot'
+require 'rlid/common'
+require 'rlid/language_guesser/tests/test'
 
 
 
@@ -101,7 +101,7 @@ private
   def plot_data
     data = []
     @results.each do |name, hash|
-      # coverto to array and sort
+      # covert to array and sort
       combine_size = 3 # combine consecutive data...
       a = hash.to_a.sort{|x, y| x[0] <=> y[0]}
       a.delete_if{|x| not xrange.include? x[0]}
@@ -131,4 +131,6 @@ private
 
 protected
   attr_accessor :results
+end
+
 end
