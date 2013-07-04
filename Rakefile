@@ -11,7 +11,7 @@ require 'rake/testtask'
 
 spec = Gem::Specification.new do |s|
   s.name = 'rlid'
-  s.version = '0.1.0'
+  s.version = '0.1.1'
   s.required_ruby_version = '>= 1.9.1'
   s.has_rdoc = false
   #s.extra_rdoc_files = ['README', 'LICENSE']
