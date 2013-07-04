@@ -74,6 +74,10 @@ class LanguageProbabilities
     @percentage[lang]
   end
 
+  def to_a
+    sorted.map{|x| {language: x[LANG], confidence: x[PERC]}}
+  end
+
   def first
     sorted.first[LANG]
   end
