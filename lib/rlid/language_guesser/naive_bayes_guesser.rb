@@ -51,9 +51,9 @@ end
 
 class SmartBayesGuesser < LanguageGuesser
   def initialize(default=1)
-    print "Smart Bayes: loading models.."
+    #print "Smart Bayes: loading models.."
     @models = SmartBayesModels.new
-    puts " Done!"
+    #puts " Done!"
   end
   def guess_language(string)
     results = @models.probabilities(string)
