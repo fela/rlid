@@ -176,7 +176,7 @@ private
   end
 end
 
-
+=begin
 class SmartBayesModels
   def initialize
     @trigrams = NaiveBayesModels.load
@@ -200,5 +200,6 @@ class SmartBayesModels
     res
   end
 end
+=end
 
 end # module Rlid

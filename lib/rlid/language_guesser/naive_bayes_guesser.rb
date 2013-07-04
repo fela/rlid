@@ -6,11 +6,11 @@ require 'rlid/probabilities/language_probabilities'
 
 class NaiveBayesGuesser < LanguageGuesser
   def initialize(default=1)
-    print "Naive Bayes: loading models.."
+    #print "Naive Bayes: loading models.."
     @models = NaiveBayesModels.load
     @models.default_count = default
     @name = "Naive Bayes"
-    puts " Done!"
+    #puts " Done!"
   end
   
   def guess_language(string)
@@ -49,6 +49,7 @@ class NaiveBayesProbabilityGuesser < NaiveBayesGuesser
   end
 end
 
+=begin
 class SmartBayesGuesser < LanguageGuesser
   def initialize(default=1)
     #print "Smart Bayes: loading models.."
@@ -65,6 +66,7 @@ class SmartBayesGuesser < LanguageGuesser
     LanguageProbabilities.new(results)
   end
 end
+=end
 
 
 class NaiveBayesPriorGuesser < NaiveBayesProbabilityGuesser
