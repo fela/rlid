@@ -10,7 +10,7 @@ describes the software in more detail. An online demo is available
 
 Gem
 ===
-I've created a gem that can be used to guess a language using the
+The [gem](https://rubygems.org/gems/rlid) can be used to guess a language using the
 Bayesian language guesser, just
 
     gem install rlid
