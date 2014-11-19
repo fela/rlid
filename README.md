@@ -4,7 +4,7 @@ Language Identification
 This repository contains code to build multilingual text corpora, and to train
 and to use various language identification algorithms. [thesis.pdf](/thesis.pdf)
 describes the software in more detail. An online demo is available 
-[here](http://fela.heroku.com/rlid).
+[here](http://fela.herokuapp.com/rlid).
 
 
 
